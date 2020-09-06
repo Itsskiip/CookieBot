@@ -8,5 +8,11 @@ def is_owner():
 
 def is_moderator():
     async def predicate(ctx):
-        return ('moderator_role' in config.keys()) and (ctx.author in ctx.guild.get_role(config['moderator_role']).members)
+        if 'moderator_role' not in config.keys(): return False
+
+        mod_role = ctx.guild.get_role(config['moderator_role'])
+
+        if mod_role is None: return False
+        return ctx.author in mod_role.members
+
     return commands.check(predicate)
