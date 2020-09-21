@@ -9,5 +9,11 @@ bot = commands.Bot(command_prefix='!!')
 bot.add_cog(Replies(bot))
 bot.add_cog(Misc(bot))
 bot.add_cog(Embeds(bot))
-logging.basicConfig(level=logging.WARNING)
+
+logger = logging.getLogger('discord')
+logger.setLevel(logging.INFO)
+handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+logger.addHandler(handler)
+
 bot.run(config['token'])
